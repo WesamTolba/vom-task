@@ -15,4 +15,9 @@ class Store extends Model
         'vat_value',
         'user_id'
         ];
+
+
+    public function merchant(){
+       return $this->belongsTo(User::class, 'user_id');
+    }
 }

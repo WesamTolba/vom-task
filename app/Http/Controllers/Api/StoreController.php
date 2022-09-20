@@ -2,12 +2,24 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Api\BaseController as BaseController;
+
+use App\Http\Resources\StoreResource;
 use App\Models\Store;
 use App\Http\Requests\StoreStoreRequest;
 use App\Http\Requests\UpdateStoreRequest;
+use App\Repository\StoreRepository;
+use Illuminate\Support\Facades\Auth;
 
-class StoreController extends Controller
+class StoreController extends BaseController
 {
+    private StoreRepository $storeRepository;
+
+    public function __construct(StoreRepository $storeRepository)
+    {
+        $this->storeRepository  = $storeRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +27,9 @@ class StoreController extends Controller
      */
     public function index()
     {
-        //
+      return  $this->storeRepository->get();
+//        $stores = Auth::user()->stores;
+//        return StoreResource::collection($stores);
     }
 
     /**
@@ -37,7 +51,10 @@ class StoreController extends Controller
      */
     public function show(Store $store)
     {
-        //
+        if ($store->user_id != Auth::user()->id)
+            return $this->sendError('access denied');
+
+        return StoreResource::make($store);
     }
 
     /**

@@ -18,5 +18,5 @@ Route::post('/auth/register', [\App\Http\Controllers\Api\AuthController::class, 
 Route::post('/auth/login', [\App\Http\Controllers\Api\AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group( function () {
-
+    Route::apiResource('stores', \App\Http\Controllers\Api\StoreController::class);
 });
