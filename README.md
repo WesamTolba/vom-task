@@ -18,7 +18,7 @@ please run php artisan migrate:fresh --seed to run migration files and seeding d
 
 
 You have 2 types of user "merchant", "user" every type has 5 users for testing
-
+all password is "password" word
 ===========================================================================
 
 Post method  api/merchant/stores for create new store
