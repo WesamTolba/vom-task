@@ -9,6 +9,7 @@ use App\Models\Store;
 use App\Http\Requests\StoreStoreRequest;
 use App\Http\Requests\UpdateStoreRequest;
 use App\Repository\StoreRepository;
+use App\Services\StoresServices;
 use Illuminate\Support\Facades\Auth;
 
 class StoreController extends BaseController
@@ -38,9 +39,9 @@ class StoreController extends BaseController
      * @param  \App\Http\Requests\StoreStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreStoreRequest $request)
+    public function store(StoreStoreRequest $request, StoresServices $storesServices)
     {
-        $data = $this->storeRepository->store($request->all());
+        $data = $this->storeRepository->store($storesServices->creatStore($request));
         return StoreResource::make($data);
     }
 

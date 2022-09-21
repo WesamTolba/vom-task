@@ -56,13 +56,19 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         if ($exception instanceof UnauthorizedException && !$request->ajax()) {
-            return redirect(getRedirectRoute())->withErrors(['forbidden' => 'Invalid Role']);
+            return response([
+                'message'          => 'Sorry, Invalid Role',
+                'success'          => 0,
+                'validation_error' => 1
+            ], 422);
         }
 
         if ($exception instanceof AuthorizationException && !$request->ajax()) {
-            if (url()->previous() != url()->current())
-                return redirect()->back()->withErrors(['forbidden' => $exception->getMessage()]);
-            else return redirect(getRedirectRoute())->withErrors(['forbidden' => $exception->getMessage()]);
+            return response([
+                'message'          => 'Sorry, You are not to access this page',
+                'success'          => 0,
+                'validation_error' => 1
+            ], 422);
         }
         if ($exception instanceof ValidationException && ($request->ajax() || Str::contains($request->url(), 'api'))) {
             $errors = array_values($exception->validator->errors()->getMessages());

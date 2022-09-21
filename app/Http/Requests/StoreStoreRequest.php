@@ -28,8 +28,6 @@ class StoreStoreRequest extends FormRequest
             'cost_shipping' => 'required|numeric|min:0',
             'vat_type' =>'required|in:percentage,value',
             'vat_value' => 'required|numeric|min:1',
-            'user_id' => 'required|exists:users,id',
-
         ];
     }
 }
