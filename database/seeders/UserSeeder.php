@@ -16,18 +16,8 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::insert(
-            [
-                'name' => 'merchant',
-                'email' => 'merchant@getvom.com',
-                'password' => bcrypt('123456')
-            ],
-            [
-                'name' => 'user',
-                'email' => 'user@getvom.com',
-                'password' =>  bcrypt('123456')
-            ]
-        );
-        User::factory()->count(5)->create();
+        User::factory()->count(5)->create()->each(function (User $user){
+            $user->assignRole('merchant');
+        });
     }
 }

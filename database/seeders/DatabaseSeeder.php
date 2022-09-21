@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,6 +15,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        Role::insert(
+            [
+                [
+                    'name' => 'Merchant',
+                    'guard_name' => 'web'
+                ],
+                [
+                    'name' => 'user',
+                    'guard_name' => 'web'
+                ]]
+        );
         $this->call(UserSeeder::class);
         $this->call(StoreSeeder::class);
 //        $this->call(ProductSeeder::class);

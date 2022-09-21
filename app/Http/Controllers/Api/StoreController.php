@@ -40,7 +40,8 @@ class StoreController extends BaseController
      */
     public function store(StoreStoreRequest $request)
     {
-
+        $data = $this->storeRepository->store($request->all());
+        return StoreResource::make($data);
     }
 
     /**

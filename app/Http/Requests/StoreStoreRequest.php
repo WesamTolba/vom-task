@@ -24,7 +24,12 @@ class StoreStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|unique:stores|max:255|regex:/(^[A-Za-z0-9 ]+$)+/',
+            'cost_shipping' => 'required|numeric|min:0',
+            'vat_type' =>'required|in:percentage,value',
+            'vat_value' => 'required|numeric|min:1',
+            'user_id' => 'required|exists:users,id',
+
         ];
     }
 }

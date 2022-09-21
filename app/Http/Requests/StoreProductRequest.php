@@ -13,7 +13,7 @@ class StoreProductRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,13 @@ class StoreProductRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name_en'  => 'required|max:255|regex:/(^[A-Za-z0-9 ]+$)+/',
+            'name_ar'  => 'required|max:255|regex:/\p{Arabic}/u',
+            'desc_en'  => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
+            'desc_ar'  => 'required|regex:/\p{Arabic}/u',
+            'price'    =>'required|numeric|min:1',
+            'with_vat' =>'in:0,1',
+
         ];
     }
 }
