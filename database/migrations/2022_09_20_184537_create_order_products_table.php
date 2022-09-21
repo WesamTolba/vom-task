@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('order_product', function (Blueprint $table) {
+        Schema::create('order_products', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\Order::class)->constrained();
             $table->foreignIdFor(\App\Models\Product::class)->constrained();

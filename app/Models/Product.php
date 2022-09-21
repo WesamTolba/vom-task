@@ -17,4 +17,10 @@ class Product extends Model
         'store_id'
     ];
     public $translatable = ['name', 'description'];
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'order_products');
+    }
+
 }

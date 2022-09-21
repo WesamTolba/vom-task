@@ -16,8 +16,16 @@ class RoleSeeder extends Seeder
     public function run()
     {
         Role::insert(
-            ['name' => 'merchant'],
-            ['name' => 'user']
+            [   [
+                    'name' => 'merchant',
+                    'guard_name' => 'web'
+                ],
+                [
+                    'name' => 'user',
+                    'guard_name' => 'web'
+                ]
+            ]
+
         );
     }
 }

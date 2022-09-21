@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Store;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Auth;
 
 class StorePolicy
 {
@@ -18,7 +19,10 @@ class StorePolicy
      */
     public function viewAny(User $user)
     {
-        //
+//        if ($store->user_id != Auth::user()->id)
+//            return $this->deny('Sorry, You are not to access this page');
+//
+//        return true;
     }
 
     /**
@@ -30,7 +34,10 @@ class StorePolicy
      */
     public function view(User $user, Store $store)
     {
-        //
+        if ($store->user_id != Auth::user()->id)
+            return $this->deny('Sorry, You are not to access this page');
+
+        return true;
     }
 
     /**

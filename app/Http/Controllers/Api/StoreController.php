@@ -52,9 +52,6 @@ class StoreController extends BaseController
      */
     public function show(Store $store)
     {
-        if ($store->user_id != Auth::user()->id)
-            return $this->sendError('access denied');
-
         return StoreResource::make($store);
     }
 

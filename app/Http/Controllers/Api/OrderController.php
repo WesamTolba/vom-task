@@ -2,12 +2,26 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Api\BaseController as BaseController;
+
+use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Models\OrderProduct;
+use App\Models\Product;
+use App\Models\Store;
+use App\Repository\OrderRepository;
+use App\Services\OrdersServices;
 
-class OrderController extends Controller
+class OrderController extends BaseController
 {
+    private OrderRepository $orderRepository;
+
+    public function __construct(OrderRepository $orderRepository)
+    {
+        $this->orderRepository = $orderRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +29,6 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
     }
 
 
@@ -25,9 +38,10 @@ class OrderController extends Controller
      * @param  \App\Http\Requests\StoreOrderRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreOrderRequest $request)
+    public function store(StoreOrderRequest $request, OrdersServices $ordersServices)
     {
-        //
+        $data = $this->orderRepository->store($ordersServices->storeOrder($request));
+        return OrderResource::make($data);
     }
 
     /**
